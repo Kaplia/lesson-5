@@ -21,6 +21,10 @@ a {
     margin-right: 2%;
 }
 
+p {
+    color: #131313;
+}
+
 .container {
     height: 100%;
 }
@@ -66,6 +70,7 @@ a {
     position: relative;
     font: 16px/24px Helvetica;
     width: 80%;
+    color: white;
 }
 
 #header-1 p::after {
@@ -494,6 +499,15 @@ a {
     background-color: white;
     font: 14px/20px Helvetica;
     color: #898989;
+}
+
+.coming-soon {
+    text-align: center;
+}
+
+.coming-soon p {
+    font:  18px/30px Helvetica;
+    color: #131313;
 }
 
 @media (min-width: 1921px) and (max-width: 2500px) {

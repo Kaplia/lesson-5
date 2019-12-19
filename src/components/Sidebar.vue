@@ -10,8 +10,9 @@
                 h6  {{user.status}}
         #tasks(v-for='task in tasks' :key='task.name')
             .rightcol
-                h3.open-tasks  {{task.open}}
-                h6 Open Tasks
+                router-link(to="/tasks")
+                    h3.open-tasks {{task.open}}
+                    h6 Open Tasks
             .leftcol
                 h3.completed-tasks(v-on:click='completeTask()')  {{task.completed}}
                 h6 Completed Tasks

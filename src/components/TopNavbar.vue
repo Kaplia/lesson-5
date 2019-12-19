@@ -15,15 +15,15 @@
         .navigation
             ul
                 li
-                    a(href='#' v-on:click="openbox('card-tasks')") Tasks
+                    router-link(to="/tasks") Tasks
                 li
-                    a(href='') Kanban
+                    router-link(to="/kanban") Kanban
                 li
-                    a(href='#' v-on:click="openbox('card-activity')") Activity
+                    router-link(to="/activity") Activity
                 li
-                    a(href='') Calendar
+                    router-link(to="/calendar") Calendar
                 li
-                    a(href='') Files
+                    router-link(to="/files") Files
 
 </template>
 
@@ -32,7 +32,7 @@
     import {Component, Vue} from "vue-property-decorator";
 
     @Component
-    export default class Sidebar extends Vue {
+    export default class TopNavbar extends Vue {
         openbox(id) {
             var all = document.querySelectorAll(".card");
             for (var i = 0; i < all.length; i++) {
