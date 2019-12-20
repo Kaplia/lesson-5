@@ -10,7 +10,7 @@
                 h6  {{user.status}}
         #tasks(v-for='task in tasks' :key='task.name')
             .rightcol
-                router-link(to="/tasks")
+                router-link(to="/")
                     h3.open-tasks {{task.open}}
                     h6 Open Tasks
             .leftcol

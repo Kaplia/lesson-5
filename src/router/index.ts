@@ -13,7 +13,7 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/tasks',
+    path: '/',
     name: 'layout',
     component: Layout,
     children: [
@@ -42,12 +42,6 @@ const routes = [
         name: 'files',
         component: Files,
       },
-      // {
-      //   path: '/404',
-      //   name: 'NotFound',
-      //   component: NotFound,
-      // },
-      // { path: '*', redirect: '/404' },
     ],
   },
   { path: '/404', component: NotFound },

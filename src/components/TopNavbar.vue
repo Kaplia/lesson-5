@@ -15,7 +15,7 @@
         .navigation
             ul
                 li
-                    router-link(to="/tasks") Tasks
+                    router-link(to="/") Tasks
                 li
                     router-link(to="/kanban") Kanban
                 li
