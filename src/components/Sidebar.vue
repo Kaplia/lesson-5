@@ -31,38 +31,38 @@
 
 <script lang="ts">
     // todo: refactor
-    let completedTasks: any = document.querySelector(".completed-tasks");
-    let openTasks: any = document.querySelector(".open-tasks");
+    let completedTasks: any = document.querySelector('.completed-tasks');
+    let openTasks: any  = document.querySelector('.open-tasks');
 
-    import {Component, Vue} from "vue-property-decorator";
+    import {Component, Vue} from 'vue-property-decorator';
 
     @Component
     export default class Sidebar extends Vue {
-        users: any[] = [
+        public users: any[] = [
             {
-                name: "Jean Gonzales",
-                status: "Product Owner"
-            }
+                name: 'Jean Gonzales',
+                status: 'Product Owner',
+            },
         ];
-        tasks: any[] = [
+        public tasks: any[] = [
             {
-                open: "2",
-                completed: "237"
-            }
+                open: '2',
+                completed: '237',
+            },
         ];
 
-        completeTask() {
-            completedTasks = document.querySelector('.completed-tasks').innerHTML;
-            openTasks = document.querySelector('.open-tasks').innerHTML;
-            if (openTasks != 0) {
-              if (confirm("Are you sure you want to change the number of tasks?")) {
+        public completeTask() {
+            completedTasks = document.querySelector('.completed-tasks')!.innerHTML;
+            openTasks = document.querySelector('.open-tasks')!.innerHTML;
+            if (openTasks !== 0) {
+              if (confirm('Are you sure you want to change the number of tasks?')) {
                 openTasks--;
                 completedTasks++;
               } else {
-                alert("Cancel")
+                alert('Cancel');
               }
-              document.querySelector('.completed-tasks').innerHTML = completedTasks;
-              document.querySelector('.open-tasks').innerHTML = openTasks;
+              document.querySelector('.completed-tasks')!.innerHTML = completedTasks;
+              document.querySelector('.open-tasks')!.innerHTML = openTasks;
             }
         }
     }

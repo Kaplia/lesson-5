@@ -29,20 +29,20 @@
 
 <script lang="ts">
 
-    import {Component, Vue} from "vue-property-decorator";
+    import {Component, Vue} from 'vue-property-decorator';
 
     @Component
     export default class TopNavbar extends Vue {
-        openbox(id) {
-            var all = document.querySelectorAll(".card");
-            for (var i = 0; i < all.length; i++) {
-                if (all[i].id == id) {
-                    all[i].style.display = 'block'
-                } else {
-                    all[i].style.display = 'none';
-                }
-            }
-        }
+        // openbox(id) {
+        //     var all = document.querySelectorAll(".card");
+        //     for (var i = 0; i < all.length; i++) {
+        //         if (all[i].id == id) {
+        //             all[i].style.display = 'block'
+        //         } else {
+        //             all[i].style.display = 'none';
+        //         }
+        //     }
+        // }
     }
 </script>
 

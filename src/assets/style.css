@@ -494,7 +494,15 @@ p {
 }
 
 #container .content .activity-tasks .task-deadline {
-    width: 15%;
+    width: 10%;
+    text-align: right;
+    background-color: white;
+    font: 14px/20px Helvetica;
+    color: #898989;
+}
+
+#container .content .activity-tasks .button {
+    width: 5%;
     text-align: right;
     background-color: white;
     font: 14px/20px Helvetica;

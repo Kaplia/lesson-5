@@ -25,28 +25,28 @@
 
 <script lang="ts">
 
-    import {Component, Vue} from "vue-property-decorator";
+    import {Component, Vue} from 'vue-property-decorator';
 
     @Component
     export default class Activity extends Vue {
-        name: 'activity';
-        activity: any[] = [
+        public name: string = 'activity';
+        public activity: any[] = [
             {
-                task: "Darika Samak mark as done Listing on Product Hunt so that we can reach as many potential users",
-                time: "8:40 PM"
+                task: 'Darika Samak mark as done Listing on Product Hunt so that we can reach as many potential users',
+                time: '8:40 PM',
             },
             {
-                task: "Emilee Simchenko commented on Account for teams and personal in bottom style",
-                time: "7:32 PM"
+                task: 'Emilee Simchenko commented on Account for teams and personal in bottom style',
+                time: '7:32 PM',
             },
             {
-                task: "Darika Samak uploaded 4 files on An option to search in current projects or in all projects",
-                time: "6:02 PM"
+                task: 'Darika Samak uploaded 4 files on An option to search in current projects or in all projects',
+                time: '6:02 PM',
             },
         ];
 
-        imageClick(id) {
-            document.querySelector('.notifications').innerHTML = id;
+        public imageClick(id: number) {
+            document.querySelector('.notifications')!.innerHTML = id + '';
         }
     }
 </script>
