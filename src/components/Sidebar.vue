@@ -54,7 +54,7 @@
         public completeTask() {
             completedTasks = document.querySelector('.completed-tasks')!.innerHTML;
             openTasks = document.querySelector('.open-tasks')!.innerHTML;
-            if (openTasks !== 0) {
+            if (openTasks > 0) {
               if (confirm('Are you sure you want to change the number of tasks?')) {
                 openTasks--;
                 completedTasks++;

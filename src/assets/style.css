@@ -481,7 +481,6 @@ p {
     background-color: white;
     position: inherit;
     color: #131313;
-    font: 16px/20px Helvetica;
 }
 
 #container .content .activity-tasks .task-description {
@@ -490,10 +489,17 @@ p {
     background-color: white;
     position: inherit;
     color: #131313;
-    font: 16px/20px Helvetica;
 }
 
 #container .content .activity-tasks .task-deadline {
+    width: 8%;
+    text-align: right;
+    background-color: white;
+    font: 14px/20px Helvetica;
+    color: #898989;
+}
+
+#container .content .activity-tasks .task-status {
     width: 10%;
     text-align: right;
     background-color: white;
