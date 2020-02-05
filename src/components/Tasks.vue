@@ -18,20 +18,14 @@
                     .box.button
                         button.delete(v-on:click="taskList.splice(index, 1)")
                             i.far.fa-trash-alt
-            form(v-on:submit.prevent="addNewTask")
-                .card-form
-                    div
-                        p
-                            input#name(type='text' placeholder='Tasks name' title="Заполните поле" required v-model="newTaskName")
-                        p
-                            textarea(name='comment' rows='4' placeholder='Description' title="Заполните поле" required v-model="newTaskText")
-                    button.add ADD
+            #app
+               button.add(@click='modalOpened = true') Add Task
+               modal(v-if='modalOpened' @close='modalOpened = false' @add-task="addNewTask")
 
 
 </template>
 
 <script lang="ts">
-
     interface TaskInterface {
         id: number;
         name: string;
@@ -40,11 +34,19 @@
         status: string;
     }
 
-    import {Component, Vue} from 'vue-property-decorator';
 
-    @Component
+    import {Component, Vue} from 'vue-property-decorator';
+    import Modal from '../components/Modal.vue';
+
+    @Component({
+        components: {
+            modal: Modal,
+        },
+    })
+
+
     export default class Tasks extends Vue {
-        public newTaskText: string = '';
+        public modalOpened: boolean = false;
         public taskList: TaskInterface[] = [
             {
                 id: 1,
@@ -61,25 +63,22 @@
                 status: '',
             },
         ];
-        public nextTaskId: number = 3;
-        public newTaskName: string = '';
 
-        public addNewTask() {
+        public addNewTask(data: TaskInterface) {
             this.taskList.push({
-                id: this.nextTaskId++,
-                name: this.newTaskName,
-                description: this.newTaskText,
+                id: 1,
+                name: data.name,
+                description: data.description,
                 deadline: '',
                 status: 'To Do',
-            })
-            ;
-            this.newTaskName = '';
-            this.newTaskText = '';
+            });
+            this.modalOpened = false;
         }
 
         public animation(i: any) {
             return {'animation-delay': (i * 1) + 's'};
         }
+
     }
 </script>
 
@@ -115,6 +114,7 @@
         vertical-align: middle;
         font: bold 14px/17px Helvetica;
         margin-right: 7px;
+        margin-top: 2%;
     }
 
     .add:active {
