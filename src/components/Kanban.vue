@@ -3,11 +3,13 @@
         .content-1.box
             .navbar-task
                 h1 To Do
-            .card-task(v-for='(task, index) in taskList' :key='task.name')
+
+            .card-task(v-for='(task, index) in taskList' :key='task.id' @click='openedTask = task.id')
                 .task-name
                     p {{task.name}}
                 .task-deadline
                     p {{task.deadline}}
+                taskDetailsModal(v-if='openedTask === task.id' :task='task' :openedTask='openedTask' @close='closeModal' v-on:update:openedTask="openedTask = 0")
         .content-2.box
             .navbar-task
                 h1 In Progress
@@ -31,26 +33,42 @@
     }
 
     import {Component, Vue} from 'vue-property-decorator';
+    import TaskDetailsModal from '../components/TaskDetailsModal.vue';
 
-    @Component
+    @Component({
+        components: {
+            taskDetailsModal: TaskDetailsModal,
+        },
+    })
     export default class Kanban extends Vue {
+        public detailsOpened: boolean = false;
         public taskList: TaskInterface[] = [
             {
                 id: 1,
                 name: '1 task',
                 description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-                deadline: '01.12.2019',
+                deadline: '2020-01-12',
                 status: '',
             },
             {
                 id: 2,
                 name: '2 task',
                 description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-                deadline: '20.12.2019',
+                deadline: '2020-01-10',
                 status: '',
             },
         ];
+        public openedTask: number = 0;
+
+
+        public closeModal() {
+            // console.log(this);
+            console.log(this.openedTask);
+        }
+
+
     }
+
 </script>
 
 <style>
