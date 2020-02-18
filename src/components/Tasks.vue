@@ -3,7 +3,7 @@
     #container
         .content
             #card-tasks.card(style='display')
-            .animation-tasks.activity-tasks(v-for='(task, index) in taskList' :key='task.name')(:style='animation(index)')
+            .animation-tasks.activity-tasks(v-for='(task, index) in taskList' :key='task.name')(:style='animation(index)' @click='openedTask = task.id')
                     .box.task-name
                         | {{task.name}}
                     .box.task-description
@@ -18,6 +18,7 @@
                     .box.button
                         button.delete(v-on:click="taskList.splice(index, 1)")
                             i.far.fa-trash-alt
+                    taskDetailsModal(v-if='openedTask === task.id' :task='task')
             #app
                button.add(@click='modalOpened = true') Add Task
                modal(v-if='modalOpened' @close='modalOpened = false' @add-task="addNewTask")
@@ -37,16 +38,19 @@
 
     import {Component, Vue} from 'vue-property-decorator';
     import Modal from '../components/Modal.vue';
+    import TaskDetailsModal from '../components/TaskDetailsModal.vue';
 
     @Component({
         components: {
             modal: Modal,
+            taskDetailsModal: TaskDetailsModal,
         },
     })
 
 
     export default class Tasks extends Vue {
         public modalOpened: boolean = false;
+        public detailsOpened: boolean = false;
         public taskList: TaskInterface[] = [
             {
                 id: 1,
@@ -63,6 +67,7 @@
                 status: '',
             },
         ];
+        public openedTask: number = 0;
 
         public addNewTask(data: TaskInterface) {
             this.taskList.push({
@@ -168,6 +173,7 @@
         -webkit-animation-duration: 2s;
         animation-name: example2;
         animation-duration: 2s;
+        cursor: pointer;
 
     }
 

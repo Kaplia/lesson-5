@@ -1,6 +1,5 @@
 <template lang="pug">
    .container(v-if="modalOpened")
-
            .modal-mask
               .modal-wrapper
                  .modal-container
@@ -20,13 +19,8 @@
 </template>
 
 <script lang="ts">
-    interface TaskInterface {
-        id:  number;
-        name: string;
-        description: string;
-        deadline: string;
-        status: string;
-    }
+
+    import {TaskInterface} from '../interfaces/task.interface';
 
     import {Component, Vue} from 'vue-property-decorator';
 
