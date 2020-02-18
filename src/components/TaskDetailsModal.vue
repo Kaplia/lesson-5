@@ -1,9 +1,9 @@
 <template lang="pug">
-   .container
+   .container(v-if='detailsOpened')
           .modal-mask
               .modal-wrapper
                  .modal-container
-                    button.modal-default-button(@click="closeModal()" v-if='edit')
+                    button.modal-default-button(@click="detailsOpened = false" v-if='edit')
                         i.fas.fa-times
                     form
                          .box
@@ -25,9 +25,9 @@
                                       option(value='todo', selected) To Do
                                       option(value='inprogress') In Progress
                                       option(value='done') Done
-                         div.edit( @click='editingTask = true, edit = false' v-if='edit') EDIT
+                         div.edit( @click='editingTask = true, edit = false, enableEditing()' v-if='edit') EDIT
                          button.cancel(type='button' @click='detailsOpened = false' v-if='editingTask') CANCEL
-                         button.save(type='button' @click='addEditingTask();' v-if='saveTask') SAVE
+                         button.save(type='button' @click='addEditingTask(), detailsOpened = false' v-if='saveTask') SAVE
 
 
 
@@ -52,6 +52,12 @@
         public editingTask: boolean = false;
         public taskEdit: TaskInterface = {} as TaskInterface;
 
+        public enableEditing() {
+            this.taskEdit.name = this.$props.task.name;
+            this.taskEdit.description = this.$props.task.description;
+            this.taskEdit.deadline = this.$props.task.deadline;
+        }
+
         public addEditingTask() {
             this.$props.task.name = this.taskEdit.name;
             this.$props.task.description = this.taskEdit.description;
@@ -60,15 +66,15 @@
             this.detailsOpened = false;
         }
 
-        private created() {
-            this.taskEdit = Object.assign({}, this.$props.task);
-        }
-
-        public closeModal() {
-            console.log(1);
-            this.$emit('update:openedTask', 0)
-            this.$emit('close')
-        }
+        // private created() {
+        //     this.taskEdit = Object.assign({}, this.$props.task);
+        // }
+        //
+        // public closeModal() {
+        //     console.log(1);
+        //     this.$emit('update:openedTask', 0)
+        //     this.$emit('close')
+        // }
     }
 </script>
 

@@ -9,7 +9,7 @@
                     p {{task.name}}
                 .task-deadline
                     p {{task.deadline}}
-                taskDetailsModal(v-if='openedTask === task.id' :task='task' :openedTask='openedTask' @close='closeModal' v-on:update:openedTask="openedTask = 0")
+                taskDetailsModal(v-if='openedTask === task.id' :task='task')
         .content-2.box
             .navbar-task
                 h1 In Progress
@@ -61,10 +61,10 @@
         public openedTask: number = 0;
 
 
-        public closeModal() {
-            // console.log(this);
-            console.log(this.openedTask);
-        }
+        // public closeModal() {
+        //     // console.log(this);
+        //     console.log(this.openedTask);
+        // }
 
 
     }
