@@ -5,34 +5,34 @@
                  .modal-container
                     button.modal-default-button(@click="detailsOpened = false" v-if='edit')
                         i.fas.fa-times
-                    form
-                         .box
-                             .task-name(v-if='edit')
-                                  | {{task.name}}
-                             textarea( v-model='taskEdit.name' v-if='editingTask' @input='saveTask = true')
-                         .box
-                             .task-description(v-if='edit')
-                                  | {{task.description}}
-                             textarea( v-model='taskEdit.description' v-if='editingTask' @input='saveTask = true')
-                         .box
-                             .task-deadline(v-if='edit')
-                                  | {{task.deadline}}
-                             input(type="date" v-model='taskEdit.deadline' v-if='editingTask' @input='saveTask = true')
-
-                         .box
+                    div(v-if='!editingTask')
+                        .box
+                             .task-name {{task.name}}
+                        .box
+                             .task-description {{task.description}}
+                        .box
+                             .task-name {{task.deadline}}
+                        .box
+                             .task-status {{task.status}}
+                        div.edit( @click='editingTask = true; edit = false;' v-if='edit') EDIT
+                    form(v-if='editingTask')
+                        .box
+                             .task-name
+                                textarea( v-model='taskEdit.name' @input='saveTask = true')
+                        .box
+                             .task-description
+                                textarea( v-model='taskEdit.description' @input='saveTask = true')
+                        .box
+                             .task-deadline
+                                input(type="date" v-model='taskEdit.deadline' @input='saveTask = true')
+                        .box
                              .task-status
-                                 select
-                                      option(value='todo', selected) To Do
-                                      option(value='inprogress') In Progress
-                                      option(value='done') Done
-                         div.edit( @click='editingTask = true, edit = false, enableEditing()' v-if='edit') EDIT
-                         button.cancel(type='button' @click='detailsOpened = false' v-if='editingTask') CANCEL
-                         button.save(type='button' @click='addEditingTask(), detailsOpened = false' v-if='saveTask') SAVE
-
-
-
-
-
+                                 select(v-model='taskEdit.status'  @input='saveTask = true')
+                                      option(:value='taskStatuses.TODO') {{taskStatuses.TODO}}
+                                      option(:value='taskStatuses.IN_PROGRESS') {{taskStatuses.IN_PROGRESS}}
+                                      option(:value='taskStatuses.DONE') {{taskStatuses.DONE}}
+                        button.cancel(type='button' @click='detailsOpened = false' v-if='editingTask') CANCEL
+                        button.save(type='button' @click='addEditingTask(), detailsOpened = false' v-if='saveTask') SAVE
 
 </template>
 
@@ -40,7 +40,8 @@
 
 
     import {Component, Vue} from 'vue-property-decorator';
-    import {TaskInterface} from '../interfaces/task.interface';
+    import {TaskInterface} from '@/interfaces/task.interface';
+    import {TaskStatuses} from '@/static/task-status.constant';
 
     @Component({
         props: ['task', 'openedTask'],
@@ -51,30 +52,21 @@
         public edit: boolean = true;
         public editingTask: boolean = false;
         public taskEdit: TaskInterface = {} as TaskInterface;
+        public taskStatuses: any = TaskStatuses;
 
-        public enableEditing() {
-            this.taskEdit.name = this.$props.task.name;
-            this.taskEdit.description = this.$props.task.description;
-            this.taskEdit.deadline = this.$props.task.deadline;
-        }
 
         public addEditingTask() {
             this.$props.task.name = this.taskEdit.name;
             this.$props.task.description = this.taskEdit.description;
             this.$props.task.deadline = this.taskEdit.deadline;
+            this.$props.task.status = this.taskEdit.status;
 
             this.detailsOpened = false;
         }
 
-        // private created() {
-        //     this.taskEdit = Object.assign({}, this.$props.task);
-        // }
-        //
-        // public closeModal() {
-        //     console.log(1);
-        //     this.$emit('update:openedTask', 0)
-        //     this.$emit('close')
-        // }
+        private created() {
+            this.taskEdit = Object.assign({}, this.$props.task);
+        }
     }
 </script>
 
@@ -202,7 +194,7 @@
     .modal-container {
         width: 50%;
         margin: 0px auto;
-        padding: 20px 30px;
+        padding: 35px 30px;
         background-color: #fff;
         border-radius: 2px;
         box-shadow: 0 2px 8px rgba(0, 0, 0, .33);

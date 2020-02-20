@@ -11,10 +11,7 @@
                     .box.task-deadline
                         | {{task.deadline}}
                     .box.task-status
-                         select
-                             option(value='todo', selected) To Do
-                             option(value='inprogress') In Progress
-                             option(value='done') Done
+                        | {{task.status}}
                     .box.button
                         button.delete(v-on:click="taskList.splice(index, 1)")
                             i.far.fa-trash-alt
@@ -27,18 +24,11 @@
 </template>
 
 <script lang="ts">
-    interface TaskInterface {
-        id: number;
-        name: string;
-        description: string;
-        deadline: string;
-        status: string;
-    }
-
-
     import {Component, Vue} from 'vue-property-decorator';
+    import {TaskInterface} from '@/interfaces/task.interface';
     import Modal from '../components/Modal.vue';
     import TaskDetailsModal from '../components/TaskDetailsModal.vue';
+    import {TASK_STATUSES, TaskStatuses} from '@/static/task-status.constant';
 
     @Component({
         components: {
@@ -56,15 +46,15 @@
                 id: 1,
                 name: '1 task',
                 description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-                deadline: '01.12.2019',
-                status: '',
+                deadline: '2020-01-12',
+                status: TaskStatuses.TODO,
             },
             {
                 id: 2,
                 name: '2 task',
                 description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-                deadline: '20.12.2019',
-                status: '',
+                deadline: '2020-01-10',
+                status: TaskStatuses.TODO,
             },
         ];
         public openedTask: number = 0;
@@ -74,8 +64,8 @@
                 id: 1,
                 name: data.name,
                 description: data.description,
-                deadline: '',
-                status: 'To Do',
+                deadline: data.deadline,
+                status: TaskStatuses.TODO,
             });
             this.modalOpened = false;
         }

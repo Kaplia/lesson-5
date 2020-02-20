@@ -20,20 +20,15 @@
             .card-task
 
 
+
 </template>
 
 <script lang="ts">
 
-    interface TaskInterface {
-        id: number;
-        name: string;
-        description: string;
-        deadline: string;
-        status: string;
-    }
-
     import {Component, Vue} from 'vue-property-decorator';
     import TaskDetailsModal from '../components/TaskDetailsModal.vue';
+    import {TaskInterface} from '@/interfaces/task.interface';
+    import {TASK_STATUSES, TaskStatuses} from '@/static/task-status.constant';
 
     @Component({
         components: {
@@ -48,25 +43,17 @@
                 name: '1 task',
                 description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
                 deadline: '2020-01-12',
-                status: '',
+                status: TaskStatuses.TODO,
             },
             {
                 id: 2,
                 name: '2 task',
                 description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
                 deadline: '2020-01-10',
-                status: '',
+                status: TaskStatuses.TODO,
             },
         ];
         public openedTask: number = 0;
-
-
-        // public closeModal() {
-        //     // console.log(this);
-        //     console.log(this.openedTask);
-        // }
-
-
     }
 
 </script>
@@ -113,6 +100,7 @@
         color: #131313;
         text-align: left;
     }
+
     #container {
         display: flex;
     }
@@ -123,7 +111,7 @@
     }
 
     .content-1 {
-        background-color:  white;
+        background-color: white;
         border-radius: 8px;
         width: 30%;
         margin-right: 1%;
@@ -133,7 +121,7 @@
     }
 
     .content-2 {
-        background-color:  white;
+        background-color: white;
         border-radius: 8px;
         width: 30%;
         margin-right: 1%;
@@ -142,7 +130,7 @@
     }
 
     .content-3 {
-        background-color:  white;
+        background-color: white;
         border-radius: 8px;
         width: 30%;
         margin-right: 3%;

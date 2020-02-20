@@ -12,6 +12,8 @@
                                     input#name(type='text' placeholder='Tasks name' title="Заполните поле" required v-model="newTask.name")
                                 p
                                     textarea(name='comment' rows='4' placeholder='Description' title="Заполните поле" required v-model="newTask.description")
+                                p
+                                    input(type="date" title="Заполните поле" required v-model="newTask.deadline")
                             button.add ADD
 
 

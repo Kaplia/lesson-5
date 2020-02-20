@@ -484,7 +484,7 @@ p {
 }
 
 #container .content .activity-tasks .task-description {
-    width: 60%;
+    width: 55%;
     text-align: left;
     background-color: white;
     position: inherit;
@@ -492,7 +492,7 @@ p {
 }
 
 #container .content .activity-tasks .task-deadline {
-    width: 8%;
+    width: 15%;
     text-align: right;
     background-color: white;
     font: 14px/20px Helvetica;
@@ -500,7 +500,7 @@ p {
 }
 
 #container .content .activity-tasks .task-status {
-    width: 10%;
+    width: 15%;
     text-align: right;
     background-color: white;
     font: 14px/20px Helvetica;
