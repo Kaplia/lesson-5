@@ -1,9 +1,9 @@
 <template lang="pug">
-   .container(v-if='detailsOpened')
+   .container
           .modal-mask
               .modal-wrapper
                  .modal-container
-                    button.modal-default-button(@click="detailsOpened = false" v-if='edit')
+                    button.modal-default-button(@click="$emit('close')" v-if='!editingTask')
                         i.fas.fa-times
                     div(v-if='!editingTask')
                         .box
@@ -14,7 +14,7 @@
                              .task-name {{task.deadline}}
                         .box
                              .task-status {{task.status}}
-                        div.edit( @click='editingTask = true; edit = false;' v-if='edit') EDIT
+                        div.edit(@click='editingTask = true;') EDIT
                     form(v-if='editingTask')
                         .box
                              .task-name
@@ -31,7 +31,7 @@
                                       option(:value='taskStatuses.TODO') {{taskStatuses.TODO}}
                                       option(:value='taskStatuses.IN_PROGRESS') {{taskStatuses.IN_PROGRESS}}
                                       option(:value='taskStatuses.DONE') {{taskStatuses.DONE}}
-                        button.cancel(type='button' @click='detailsOpened = false' v-if='editingTask') CANCEL
+                        button.cancel(type='button' @click="$emit('close')" v-if='editingTask') CANCEL
                         button.save(type='button' @click='addEditingTask(), detailsOpened = false' v-if='saveTask') SAVE
 
 </template>
@@ -42,26 +42,37 @@
     import {Component, Vue} from 'vue-property-decorator';
     import {TaskInterface} from '@/interfaces/task.interface';
     import {TaskStatuses} from '@/static/task-status.constant';
+    import {ChangeStatusInterface} from '@/interfaces/change-status.interface';
 
     @Component({
-        props: ['task', 'openedTask'],
+        props: ['task', 'index'],
     })
     export default class TaskDetailsModal extends Vue {
         public saveTask: boolean = false;
         public detailsOpened: boolean = true;
-        public edit: boolean = true;
         public editingTask: boolean = false;
         public taskEdit: TaskInterface = {} as TaskInterface;
         public taskStatuses: any = TaskStatuses;
 
 
         public addEditingTask() {
+            const statusChanged: boolean = this.$props.task.status !== this.taskEdit.status;
             this.$props.task.name = this.taskEdit.name;
             this.$props.task.description = this.taskEdit.description;
             this.$props.task.deadline = this.taskEdit.deadline;
-            this.$props.task.status = this.taskEdit.status;
 
-            this.detailsOpened = false;
+            if (statusChanged) {
+                const data: ChangeStatusInterface = {
+                    index: this.$props.index,
+                    newStatus: this.taskEdit.status,
+                    prevStatus: this.$props.task.status,
+                    task: this.$props.task,
+                };
+                this.$emit('inStatusChanged', data);
+            }
+
+            this.$emit('close');
+
         }
 
         private created() {
