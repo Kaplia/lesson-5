@@ -2,7 +2,8 @@
     #container
         .content-1.box
             .navbar-task
-                h1 To Do
+                h1 {{TASK_STATUSES.TODO}}
+                h2 {{tasks[TASK_STATUSES.TODO].length}}
             draggable.draggable(:list="tasks[TASK_STATUSES.TODO]"  group="task" @change="changeStatus($event, TASK_STATUSES.TODO)" )
               .card-task(v-for='(task, index) in tasks[TASK_STATUSES.TODO]' :key='task.id' @click='openModal(task, index)')
                 .task-name
@@ -11,7 +12,8 @@
                     p {{task.deadline}}
         .content-2.box
             .navbar-task
-                h1 In Progress
+                h1 {{TASK_STATUSES.IN_PROGRESS}}
+                h2 {{tasks[TASK_STATUSES.IN_PROGRESS].length}}
             draggable.draggable( group="task" :list="tasks[TASK_STATUSES.IN_PROGRESS]"   @change="changeStatus($event, TASK_STATUSES.IN_PROGRESS)")
               .card-task(v-for='(task, index) in tasks[TASK_STATUSES.IN_PROGRESS]' :key='task.id' @click='openModal(task, index)')
                 .task-name
@@ -20,7 +22,8 @@
                     p {{task.deadline}}
         .content-3.box
             .navbar-task
-                h1 Done
+                h1 {{TASK_STATUSES.DONE}}
+                h2 {{tasks[TASK_STATUSES.DONE].length}}
             draggable.draggable(group="task" :list="tasks[TASK_STATUSES.DONE]"   @change="changeStatus($event, TASK_STATUSES.DONE)")
               .card-task(v-for='(task, index) in tasks[TASK_STATUSES.DONE]' :key='task.id' @click='openModal(task, index)')
                 .task-name
@@ -176,6 +179,16 @@
         color: #131313;
         text-align: left;
         line-height: 40px;
+        float:left;
+    }
+
+    .navbar-task h2 {
+        opacity: 0.5;
+        font: bold 14px/17px Helvetica;
+        color: #131313;
+        text-align: right;
+        line-height: 40px;
+        float:right;
     }
 
     #container {
